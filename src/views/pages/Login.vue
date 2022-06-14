@@ -176,6 +176,26 @@ export default {
       },
     }
   },
+  data() {
+    return {
+      
+    }
+  },
+  mounted() {
+    
+  },
+  methods: {
+    login () {
+      this.axios.post('/get-users').then(response => {
+        console.log(response.data)
+        response.data.forEach(element => {
+          this.dataUser.push({ users: element.defix_id })
+        })
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+  },
 }
 </script>
 
