@@ -186,7 +186,9 @@ export default {
   },
   methods: {
     login () {
-      this.axios.post('/get-users').then(response => {
+      this.axios.post('/login/', {
+        username: user
+      }).then(response => {
         console.log(response.data)
         response.data.forEach(element => {
           this.dataUser.push({ users: element.defix_id })
