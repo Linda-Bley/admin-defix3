@@ -62,24 +62,7 @@ import { mdiAccountOutline, mdiCurrencyUsd, mdiTrendingUp, mdiDotsVertical, mdiL
 
 export default {
   setup() {
-    const statisticsData = [
-      {
-        title: 'Bitcoin',
-        total: '245k',
-      },
-      {
-        title: 'Ethereum',
-        total: '12.5k',
-      },
-      {
-        title: 'USDT',
-        total: '1.54k',
-      },
-      {
-        title: 'Defix',
-        total: '$88k',
-      },
-    ]
+    
 
     const resolveStatisticsIconVariation = data => {
       if (data === 'Bitcoin') return { icon: mdiCurrencyBtc, color: 'primary' }

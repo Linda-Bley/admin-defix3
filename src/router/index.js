@@ -14,8 +14,8 @@ const routes = [
     component: () => import('@/views/dashboard/Dashboard.vue'),
   },
   {
-    path: '/typography',
-    name: 'typography',
+    path: '/trans-history',
+    name: 'trans-history',
     component: () => import('@/views/typography/Typography.vue'),
   },
   {
@@ -39,8 +39,8 @@ const routes = [
     component: () => import('@/views/form-layouts/FormLayouts.vue'),
   },
   {
-    path: '/pages/account-settings',
-    name: 'pages-account-settings',
+    path: '/pages/users-defix',
+    name: 'users-defix',
     component: () => import('@/views/pages/account-settings/AccountSettings.vue'),
   },
   {

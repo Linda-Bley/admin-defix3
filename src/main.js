@@ -12,7 +12,8 @@ Vue.config.productionTip = false
 
 Vue.use(VueAxios, axios)
 
-axios.defaults.baseURL = 'https://defix3.com:3071/api/v1'
+// axios.defaults.baseURL = 'https://defix3.com:3071/api/v1'
+axios.defaults.baseURL = 'http://157.230.2.213:85/defix3/api/v1'
 
 new Vue({
   router,

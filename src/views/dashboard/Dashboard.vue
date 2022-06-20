@@ -1,94 +1,62 @@
 <template>
   <v-row>
-    <!-- <v-col
-      cols="12"
-      md="4"
-    >
-      <dashboard-congratulation-john></dashboard-congratulation-john>
-    </v-col> -->
     <v-col
       cols="12"
-      md="8"
     >
-      <dashboard-statistics-card></dashboard-statistics-card>
+      <v-card>
+        <v-card-title class="align-start">
+          <span class="font-weight-semibold">Total coins</span>
+          <v-spacer></v-spacer>
+        </v-card-title>
+        <v-divider class="my-2"></v-divider>
+        <v-card-text>
+          <v-row>
+            <v-col
+              v-for="item in dataBalance"
+              :key="item.title"
+              cols="6"
+              md="3"
+              class="d-flex align-center"
+            >
+              <v-avatar
+                size="44"
+                :color="item.color"
+                rounded
+                class="elevation-1"
+              >
+                <v-icon
+                  dark
+                  color="white"
+                  size="30"
+                >
+                  {{ item.icon }}
+                </v-icon>
+              </v-avatar>
+              <div class="ms-3">
+                <p class="text-xs mb-0">
+                  {{ item.title }}
+                </p>
+                <h3 class="text-xl font-weight-semibold">
+                  {{ item.total }}
+                </h3>
+              </div>
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </v-card>
     </v-col>
 
     <v-col
       cols="12"
-      md="8"
     >
       <total-transaction></total-transaction>
     </v-col>
 
     <v-col
       cols="12"
-      md="4"
-      sm="6"
     >
       <dashboard-card-total-earning></dashboard-card-total-earning>
     </v-col>
-
-    <!-- <v-col
-      cols="12"
-      md="4"
-    >
-      <v-row class="match-height">
-        <v-col
-          cols="12"
-          sm="6"
-        >
-          <statistics-card-vertical
-            :change="totalProfit.change"
-            :color="totalProfit.color"
-            :icon="totalProfit.icon"
-            :statistics="totalProfit.statistics"
-            :stat-title="totalProfit.statTitle"
-            :subtitle="totalProfit.subtitle"
-          ></statistics-card-vertical>
-        </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-        >
-          <statistics-card-vertical
-            :change="totalSales.change"
-            :color="totalSales.color"
-            :icon="totalSales.icon"
-            :statistics="totalSales.statistics"
-            :stat-title="totalSales.statTitle"
-            :subtitle="totalSales.subtitle"
-          ></statistics-card-vertical>
-        </v-col>
-        <v-col
-          cols="12"
-          sm="6"
-        >
-          <statistics-card-vertical
-            :change="newProject.change"
-            :color="newProject.color"
-            :icon="newProject.icon"
-            :statistics="newProject.statistics"
-            :stat-title="newProject.statTitle"
-            :subtitle="newProject.subtitle"
-          ></statistics-card-vertical>
-        </v-col>
-
-        <v-col
-          cols="12"
-          sm="6"
-        >
-          <statistics-card-vertical
-            :change="salesQueries.change"
-            :color="salesQueries.color"
-            :icon="salesQueries.icon"
-            :statistics="salesQueries.statistics"
-            :stat-title="salesQueries.statTitle"
-            :subtitle="salesQueries.subtitle"
-          ></statistics-card-vertical>
-        </v-col>
-      </v-row>
-    </v-col> -->
-
     <v-col
       cols="12"
       md="4"
@@ -109,18 +77,13 @@
 
 <script>
 // eslint-disable-next-line object-curly-newline
-import { mdiPoll, mdiLabelVariantOutline, mdiCurrencyUsd, mdiHelpCircleOutline } from '@mdi/js'
+import { mdiAccountOutline, mdiCurrencyUsd, mdiTrendingUp, mdiDotsVertical, mdiLabelOutline, mdiCurrencyBtc, mdiEthereum } from '@mdi/js'
 // import StatisticsCardVertical from '@/components/statistics-card/StatisticsCardVertical.vue'
 
 // demos
 import DashboardCongratulationJohn from './DashboardCongratulationJohn.vue'
 import DashboardStatisticsCard from './DashboardStatisticsCard.vue'
 import TotalTransaction from './totalTransaction.vue'
-//import DashboardCardTotalEarning from './DashboardCardTotalEarning.vue'
-//import DashboardCardDepositAndWithdraw from './DashboardCardDepositAndWithdraw.vue'
-//import DashboardCardSalesByCountries from './DashboardCardSalesByCountries.vue'
-//import DashboardWeeklyOverview from './DashboardWeeklyOverview.vue'
-//import DashboardDatatable from './DashboardDatatable.vue'
 
 export default {
   components: {
@@ -134,50 +97,31 @@ export default {
     //DashboardWeeklyOverview,
     //DashboardDatatable,
   },
-  setup() {
-    const totalProfit = {
-      statTitle: 'Total Profit',
-      icon: mdiPoll,
-      color: 'success',
-      subtitle: 'Weekly Project',
-      statistics: '$25.6k',
-      change: '+42%',
-    }
-
-    const totalSales = {
-      statTitle: 'Refunds',
-      icon: mdiCurrencyUsd,
-      color: 'secondary',
-      subtitle: 'Past Month',
-      statistics: '$78',
-      change: '-15%',
-    }
-
-    // vertical card options
-    const newProject = {
-      statTitle: 'New Project',
-      icon: mdiLabelVariantOutline,
-      color: 'primary',
-      subtitle: 'Yearly Project',
-      statistics: '862',
-      change: '-18%',
-    }
-
-    const salesQueries = {
-      statTitle: 'Sales Quries',
-      icon: mdiHelpCircleOutline,
-      color: 'warning',
-      subtitle: 'Last week',
-      statistics: '15',
-      change: '-18%',
-    }
-
+  data() {
     return {
-      totalProfit,
-      totalSales,
-      newProject,
-      salesQueries,
+      dataBalance: [],
     }
+  },
+  mounted() {
+    this.balance()
+  },
+  methods: {
+    balance() {
+      // this.axios.defaults.headers.common.Authorization = localStorage.Authorization
+      this.axios.get('/get-balance-defix').then(response => {
+        console.log(response.data)
+        response.data.forEach(element => {
+          this.dataBalance.push({
+            title: element.coin,
+            total: element.balance,
+            icon: mdiCurrencyBtc,
+            color: 'primary'
+          })
+        })
+      }).catch(err => {
+        console.log(err)
+      })
+    },
   },
 }
 </script>

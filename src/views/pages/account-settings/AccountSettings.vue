@@ -64,7 +64,8 @@ export default {
   },
   methods: {
     userData() {
-      this.axios.get('/get-users').then(response => {
+      // this.axios.defaults.headers.common.Authorization = localStorage.Authorization
+      this.axios.get('/get-users-defix').then(response => {
         console.log(response.data)
         response.data.forEach(element => {
           this.dataUser.push({ users: element.defix_id })

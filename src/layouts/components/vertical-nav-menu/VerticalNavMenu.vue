@@ -102,8 +102,8 @@ export default {
       selectedItem: 1,
       items: [
         { text: 'Home', icon: mdiHomeOutline, to: '/dashboard' },
-        { text: 'Usuarios', icon: mdiAccountDetailsOutline, to: '/pages/account-settings' },
-        { text: 'Historial de transacciones', icon: mdiAlphaTBoxOutline, to: '/typography' },
+        { text: 'Usuarios', icon: mdiAccountDetailsOutline, to: '/pages/users-defix' },
+        { text: 'Historial de transacciones', icon: mdiAlphaTBoxOutline, to: '/trans-history' },
       ],
     }
   },

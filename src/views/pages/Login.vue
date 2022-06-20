@@ -27,16 +27,15 @@
         <v-card-text>
           <v-form>
             <v-text-field
-              v-model="email"
+              v-model="user"
               outlined
               label="Email"
-              placeholder="john@example.com"
               hide-details
               class="mb-3"
             ></v-text-field>
 
             <v-text-field
-              v-model="password"
+              v-model="passw"
               outlined
               :type="isPasswordVisible ? 'text' : 'password'"
               label="Password"
@@ -67,6 +66,7 @@
               block
               color="primary"
               class="mt-6"
+              @click="login()"
             >
               Login
             </v-btn>
@@ -178,24 +178,41 @@ export default {
   },
   data() {
     return {
-      
+      user: '',
+      passw: '',
     }
   },
   mounted() {
     
   },
   methods: {
-    login () {
-      this.axios.post('/login/', {
-        username: user
-      }).then(response => {
-        console.log(response.data)
-        response.data.forEach(element => {
-          this.dataUser.push({ users: element.defix_id })
-        })
-      }).catch(err => {
+    // login () {
+    //   this.axios.post('/login/', {
+    //     username: user
+    //   }).then(response => {
+    //     console.log(response.data)
+    //     response.data.forEach(element => {
+    //       this.dataUser.push({ users: element.defix_id })
+    //     })
+    //   }).catch(err => {
+    //     console.log(err)
+    //   })
+    // },
+    login() {
+      const user = this.user;
+      const clave = this.passw;
+      this.axios.post('/login/', { username: user, password: clave }).then((res) => {
+        console.log(res.data.token)
+        localStorage.email = user
+        localStorage.iduser = 7
+        localStorage.email = user
+        localStorage.Authorization = res.data.token
+        this.axios.defaults.headers.common.Authorization = 'token ' + res.data.token
+        this.$router.push({name: 'dashboard'})
+      }).catch((err) => {
         console.log(err)
-      })
+      });
+      // console.log(user, clave)
     },
   },
 }
