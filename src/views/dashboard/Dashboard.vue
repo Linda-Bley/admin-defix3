@@ -15,22 +15,21 @@
               v-for="item in dataBalance"
               :key="item.title"
               cols="6"
-              md="3"
+              md="4"
               class="d-flex align-center"
             >
               <v-avatar
                 size="44"
-                :color="item.color"
                 rounded
-                class="elevation-1"
               >
-                <v-icon
+                <v-img class="elevation-1" :src="item.img" />
+                <!-- <v-icon
                   dark
                   color="white"
                   size="30"
                 >
                   {{ item.icon }}
-                </v-icon>
+                </v-icon> -->
               </v-avatar>
               <div class="ms-3">
                 <p class="text-xs mb-0">
@@ -107,17 +106,20 @@ export default {
   },
   methods: {
     balance() {
+      var image = ''
       // this.axios.defaults.headers.common.Authorization = localStorage.Authorization
       this.axios.get('/get-balance-defix').then(response => {
-        console.log(response.data)
+        // console.log(response.data)
         response.data.forEach(element => {
           this.dataBalance.push({
             title: element.coin,
-            total: element.balance,
+            total: element.balance.toFixed(4),
             icon: mdiCurrencyBtc,
-            color: 'primary'
+            color: 'primary',
+            img: require('@/assets/images/defix/coins/' + element.coin + '.png')
           })
         })
+        console.log(this.dataBalance)
       }).catch(err => {
         console.log(err)
       })

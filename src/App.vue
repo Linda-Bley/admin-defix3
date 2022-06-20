@@ -32,5 +32,8 @@ export default {
       resolveLayout,
     }
   },
+  mounted() {
+    this.axios.defaults.headers.common.Authorization = 'token ' + localStorage.Authorization
+  },
 }
 </script>

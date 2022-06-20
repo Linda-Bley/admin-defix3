@@ -202,7 +202,7 @@ export default {
       const user = this.user;
       const clave = this.passw;
       this.axios.post('/login/', { username: user, password: clave }).then((res) => {
-        console.log(res.data.token)
+        console.log(res.data)
         localStorage.email = user
         localStorage.iduser = 7
         localStorage.email = user
